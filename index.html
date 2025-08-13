@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ishwaq - Software Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #000000;
+            color: #f0f0f0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        #canvas-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+        .glass-card {
+            background: rgba(15, 18, 28, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(45, 150, 255, 0.5);
+        }
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Project Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        
+        .modal-content {
+            background: rgba(15, 18, 28, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1.5rem;
+            margin: 2% auto;
+            padding: 0;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .modal-header {
+            padding: 2rem 2rem 1rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-body {
+            padding: 1.5rem 2rem 2rem 2rem;
+        }
+        
+        .close-modal {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .close-modal:hover {
+            color: #fff;
+        }
+        
+        .project-card {
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .project-card:hover::before {
+            left: 100%;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .tech-tag {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-tag:hover {
+            background: rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            background: rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(147, 51, 234, 0.2));
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas-background"></canvas>
+
+    <div class="content-wrapper min-h-screen px-4 py-24 md:px-8 md:py-32">
+        <div class="max-w-4xl mx-auto">
+
+            <!-- Header Section -->
+            <header class="text-center mb-32 fade-in-up">
+                <h1 class="text-5xl md:text-7xl font-bold tracking-wider text-white" style="font-family: 'Cinzel', serif;">Ishwaq</h1>
+                <p class="text-xl md:text-2xl text-gray-300 mt-4 tracking-widest font-light">Software Engineer</p>
+            </header>
+
+            <!-- About Section -->
+            <section id="about" class="mb-24">
+                <div class="glass-card p-8 md:p-12 fade-in-up">
+                    <h2 class="section-title mb-6">About Me</h2>
+                    <p class="text-gray-300 leading-relaxed text-lg">
+                        I am Ishwaq, a passionate and driven full-stack developer with a strong interest in combining web development with AI to create impactful and innovative solutions. Skilled in building responsive, user-friendly interfaces and robust backends, I specialize in technologies like Flutter, Node.js, FastAPI, and platform integrations. I thrive on solving complex problems, exploring emerging tech, and turning creative ideas into functional products. My passion lies in crafting tools that not only work efficiently but also deliver meaningful user experiences.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Works Section -->
+            <section id="works" class="mb-24">
+                <h2 class="section-title text-center mb-12 fade-in-up">My Works</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="glass-card project-card p-8 fade-in-up" style="transition-delay: 100ms;" onclick="openProjectModal('notemate')">
+                        <div class="project-image">
+                            📝
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-blue-400">Notemate</h3>
+                        <p class="text-gray-400 mb-4">A smart notes management app for teachers and students with AI-powered assistance. Features secure resource sharing, announcements, and an AI chatbot for academic queries.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">AI</span>
+                        </div>
+                        <div class="mt-4 text-blue-400 text-sm font-medium">Click to learn more →</div>
+                    </div>
+                    
+                    <div class="glass-card project-card p-8 fade-in-up" style="transition-delay: 200ms;" onclick="openProjectModal('ai-brand-manager')">
+                        <div class="project-image">
+                            🤖
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-purple-400">AI Brand Manager</h3>
+                        <p class="text-gray-400 mb-4">An all-in-one platform for managing social media presence across multiple platforms. Integrates AI for content planning, audience insights, and growth strategies.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">AI/ML</span>
+                            <span class="tech-tag">Social APIs</span>
+                        </div>
+                        <div class="mt-4 text-purple-400 text-sm font-medium">Click to learn more →</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Combined Info Section -->
+            <section id="details" class="mb-24">
+                 <div class="glass-card p-8 md:p-12 fade-in-up">
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                         <div>
+                            <h2 class="section-title mb-6">Qualifications</h2>
+                            <p class="text-gray-300 leading-relaxed">Here you can list your qualifications. This can include your educational background, certifications, and key skills. For example: I hold a Bachelor of Science in Computer Science from [Your University] and am a certified [Your Certification, e.g., AWS Solutions Architect]. My expertise spans across the MERN stack, Python-based AI/ML frameworks, and cloud-native application development.</p>
+                         </div>
+                         <div>
+                            <h2 class="section-title mb-6">Biodata</h2>
+                            <p class="text-gray-300 leading-relaxed">This is where your biodata will go. You can include details like your current location, languages spoken, and other personal but professional information you'd like to share. For example: Based in the vibrant tech hub of [Your City], I am fluent in English and [Another Language], and in my free time, I enjoy contributing to open-source projects and exploring the intersection of art and technology.</p>
+                         </div>
+                     </div>
+                 </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="text-center fade-in-up">
+                <h2 class="section-title mb-6">Get In Touch</h2>
+                <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
+                    I am available for new opportunities and collaborations. If you have a project in mind or just want to connect, feel free to send a raven.
+                </p>
+                <a href="mailto:ishwaqsyed16@gmail.com" class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-10 rounded-lg transition-all duration-300 text-lg">
+                    Contact Me
+                </a>
+            </section>
+        </div>
+    </div>
+
+    <!-- Project Modals -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeProjectModal()">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalTitle" class="section-title text-3xl"></h2>
+            </div>
+            <div class="modal-body">
+                <div id="modalContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas-background');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        // Project Data
+        const projects = {
+            notemate: {
+                title: "Notemate",
+                subtitle: "Smart Notes Management App",
+                description: "Notemate is a comprehensive notes management application designed specifically for educational institutions. It provides a seamless platform for teachers and students to collaborate, share resources, and access AI-powered assistance for academic queries.",
+                longDescription: `
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Notemate revolutionizes the way educational content is managed and shared. Built with a focus on security, ease of use, and intelligent assistance, this application serves as a complete digital ecosystem for academic collaboration.
+                    </p>
+                    
+                    <h3 class="text-xl font-bold text-blue-400 mb-4">Key Features</h3>
+                    <ul class="text-gray-300 mb-6 space-y-2">
+                        <li>• <strong>AI-Powered Chatbot:</strong> Intelligent assistant for answering academic queries and providing study guidance</li>
+                        <li>• <strong>Secure Resource Sharing:</strong> End-to-end encrypted file sharing between teachers and students</li>
+                        <li>• <strong>Smart Announcements:</strong> Automated notification system for important updates and deadlines</li>
+                        <li>• <strong>Interactive Notes:</strong> Rich text editing with multimedia support</li>
+                        <li>• <strong>Progress Tracking:</strong> Comprehensive analytics for student performance monitoring</li>
+                    </ul>
+                    
+                    <h3 class="text-xl font-bold text-blue-400 mb-4">Technical Implementation</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        The application is built using Flutter for cross-platform mobile development, ensuring consistent user experience across iOS and Android. The backend is powered by FastAPI, providing robust API endpoints and real-time communication. Firebase integration handles authentication, real-time database, and cloud storage for seamless data synchronization.
+                    </p>
+                `,
+                technologies: ["Flutter", "FastAPI", "Firebase", "Python", "Dart", "AI/ML", "Real-time Database"],
+                links: [
+                    { name: "Live Demo", url: "#", icon: "🌐" },
+                    { name: "GitHub", url: "#", icon: "📁" },
+                    { name: "Documentation", url: "#", icon: "📚" }
+                ],
+                image: "📝"
+            },
+            "ai-brand-manager": {
+                title: "AI Brand Manager",
+                subtitle: "Social Media Management Platform",
+                description: "An all-in-one platform for managing social media presence across multiple platforms. Integrates AI for content planning, audience insights, and growth strategies, with a scalable, modular backend architecture.",
+                longDescription: `
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        AI Brand Manager is a cutting-edge social media management platform that leverages artificial intelligence to help businesses and creators optimize their online presence. The platform provides comprehensive tools for content creation, scheduling, analytics, and audience engagement.
+                    </p>
+                    
+                    <h3 class="text-xl font-bold text-purple-400 mb-4">Key Features</h3>
+                    <ul class="text-gray-300 mb-6 space-y-2">
+                        <li>• <strong>AI Content Generation:</strong> Automated content creation based on brand guidelines and audience preferences</li>
+                        <li>• <strong>Multi-Platform Integration:</strong> Seamless management across Instagram, Twitter, LinkedIn, and more</li>
+                        <li>• <strong>Advanced Analytics:</strong> Real-time insights into audience behavior and content performance</li>
+                        <li>• <strong>Smart Scheduling:</strong> AI-powered optimal posting times for maximum engagement</li>
+                        <li>• <strong>Brand Monitoring:</strong> Automated tracking of brand mentions and sentiment analysis</li>
+                    </ul>
+                    
+                    <h3 class="text-xl font-bold text-purple-400 mb-4">Technical Architecture</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Built with a modern tech stack featuring Node.js for the backend API, React for the frontend dashboard, and Python for AI/ML components. The system integrates with various social media APIs and uses advanced machine learning algorithms for content optimization and audience analysis.
+                    </p>
+                `,
+                technologies: ["Node.js", "React", "Python", "AI/ML", "Social APIs", "MongoDB", "Redis"],
+                links: [
+                    { name: "Platform", url: "#", icon: "🚀" },
+                    { name: "GitHub", url: "#", icon: "📁" },
+                    { name: "API Docs", url: "#", icon: "🔗" }
+                ],
+                image: "🤖"
+            }
+        };
+
+        // Modal Functions
+        function openProjectModal(projectId) {
+            const project = projects[projectId];
+            if (!project) return;
+
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalContent').innerHTML = `
+                <div class="mb-6">
+                    <div class="project-image text-6xl">
+                        ${project.image}
+                    </div>
+                    <h3 class="text-xl text-gray-400 mb-4">${project.subtitle}</h3>
+                </div>
+                
+                ${project.longDescription}
+                
+                <div class="tech-stack mb-6">
+                    ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                </div>
+                
+                <div class="project-links">
+                    ${project.links.map(link => `
+                        <a href="${link.url}" class="project-link" target="_blank" rel="noopener noreferrer">
+                            <span>${link.icon}</span>
+                            <span>${link.name}</span>
+                        </a>
+                    `).join('')}
+                </div>
+            `;
+            
+            document.getElementById('projectModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+            document.getElementById('projectModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('projectModal');
+            if (event.target === modal) {
+                closeProjectModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeProjectModal();
+            }
+        });
+
+        // --- BACKGROUND ANIMATION ---
+        let stars = [];
+        const starCount = 400;
+        let time = 0;
+
+        function initBackground() {
+            stars = [];
+            for (let i = 0; i < starCount; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 1.5,
+                    alpha: Math.random() * 0.5 + 0.2,
+                    vx: (Math.random() - 0.5) * 0.1,
+                    vy: (Math.random() - 0.5) * 0.1
+                });
+            }
+        }
+
+        function drawBackground() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw stars
+            ctx.fillStyle = 'white';
+            stars.forEach(star => {
+                star.x += star.vx;
+                star.y += star.vy;
+                if (star.x < 0 || star.x > width) star.vx *= -1;
+                if (star.y < 0 || star.y > height) star.vy *= -1;
+                ctx.globalAlpha = star.alpha;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.globalAlpha = 1;
+
+            // Draw large abstract planet
+            const planetRadius = Math.min(width, height) * 0.6;
+            const planetX = width * 0.8;
+            const planetY = height * 0.5;
+            
+            ctx.save();
+            ctx.translate(planetX, planetY);
+            ctx.rotate(time * 0.005);
+
+            const gradient = ctx.createRadialGradient(0, 0, planetRadius * 0.5, 0, 0, planetRadius);
+            gradient.addColorStop(0, 'rgba(255, 200, 100, 0.1)');
+            gradient.addColorStop(0.5, 'rgba(200, 100, 255, 0.1)');
+            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(-planetRadius, -planetRadius, planetRadius * 2, planetRadius * 2);
+
+            // Draw swirling patterns
+            for (let i = 0; i < 10; i++) {
+                ctx.beginPath();
+                ctx.lineWidth = Math.random() * 5 + 2;
+                const r = i / 10 * planetRadius;
+                const startAngle = time * 0.01 * (i % 2 === 0 ? 1 : -1) + i * 2;
+                const endAngle = startAngle + Math.PI * 1.5;
+                const colorVal = (Math.sin(time * 0.01 + i) * 0.5 + 0.5);
+                const color = `rgba(${150 + colorVal * 105}, ${100 + colorVal * 100}, ${200 - colorVal * 50}, 0.3)`;
+                ctx.strokeStyle = color;
+                ctx.arc(0, 0, r, startAngle, endAngle);
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        // --- SCROLL-BASED FADE-IN ANIMATION ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            rootMargin: '0px',
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // --- MAIN ANIMATION LOOP ---
+        function animate() {
+            time++;
+            drawBackground();
+            requestAnimationFrame(animate);
+        }
+
+        // --- INITIALIZATION & RESIZING ---
+        function initialize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initBackground();
+        }
+        
+        window.addEventListener('resize', initialize);
+        initialize();
+        animate();
+    </script>
+
+</body>
+</html>
