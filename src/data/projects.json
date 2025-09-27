@@ -1,0 +1,39 @@
+[
+  {
+    "id": "9598f908-6273-4bea-b6de-bcca4b4b6ae6",
+    "title": "Notemate",
+    "description": "App for teachers and students to share notes, announcements, and get AI-driven assistance.",
+    "technologies": [
+      "Flutter",
+      "Firebase",
+      "AI APIs",
+      "Real-time Database",
+      "Cloud Functions"
+    ],
+    "image": "https://webflow-amber-prod.gumlet.io/620e4101b2ce12a1a6bff0e8/63f3aed338f92709d7908c76_Header_10%20Best%20Note-Taking%20Apps%20Every%20Student%20Needs%20in%202023_JAN23.webp",
+    "github": "https://www.ishwaqsyed.me",
+    "live": "https://www.ishwaqsyed.me",
+    "featured": true,
+    "createdAt": "2025-09-26T14:09:52.766Z",
+    "updatedAt": "2025-09-26T14:25:48.226Z"
+  },
+  {
+    "id": "83627a79-fea9-4057-acfc-6f169fc1f5bb",
+    "title": "Steward Labs",
+    "description": "AI-powered Brand Manager unifying social platforms into one dashboard with analytics.",
+    "technologies": [
+      "Node.js",
+      "Express",
+      "AI APIs",
+      "OAuth 2.0",
+      "MongoDB",
+      "React"
+    ],
+    "image": "https://www.matellio.com/blog/wp-content/uploads/2024/12/What-Can-You-Do-with-Social-Media-Management-Software.jpg",
+    "live": "https://www.ishwaqsyed.me",
+    "featured": true,
+    "createdAt": "2025-09-26T14:09:52.766Z",
+    "updatedAt": "2025-09-26T14:31:43.373Z",
+    "github": ""
+  }
+]

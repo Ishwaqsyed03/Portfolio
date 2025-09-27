@@ -1,26 +1,376 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+  
+  /* Modern UI Colors - Shader Community Theme */
+  --card-bg: rgba(0, 0, 0, 0.4);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(0, 0, 0, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.05);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
 }
 
 body {
-  background: var(--background);
+  background: #000;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Modern Card Styling - Shader Community Theme */
+.modern-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.modern-card:hover {
+  background: rgba(0, 0, 0, 0.6);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Glass Effect Components */
+.glass-effect {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+}
+
+/* GPU acceleration for smooth animations */
+.gpu-accelerated {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Smooth transitions */
+.smooth-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Optimized backdrop blur */
+.optimized-blur {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  will-change: backdrop-filter;
+}
+
+/* Enhanced Glow Effects - White Theme */
+.glow-on-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-on-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.glow-on-hover:hover::before {
+  transform: translateX(100%);
+}
+
+.glow-on-hover:hover {
+  box-shadow: 
+    0 0 20px rgba(255, 255, 255, 0.2),
+    0 0 40px rgba(255, 255, 255, 0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px) scale(1.02);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Special Slide Hover Effect for Navigation */
+.hover-slide-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-slide-effect:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+}
+
+/* Navigation Button Effects */
+.nav-button-effect:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+}
+
+.glow-on-hover-circle {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.glow-on-hover-circle:hover {
+  box-shadow: 
+    0 0 30px rgba(255, 255, 255, 0.3),
+    0 0 60px rgba(255, 255, 255, 0.2),
+    inset 0 0 30px rgba(255, 255, 255, 0.05);
+  transform: scale(1.05);
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 20%,
+    rgba(255, 255, 255, 0.2) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  background-size: 200px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Smooth gradients and selection */
+::selection {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* Container queries for responsive design */
+@container (min-width: 768px) {
+  .container-responsive {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Motion safe utilities */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .gpu-accelerated {
+    will-change: auto;
+    transform: none;
+  }
+}
+
+/* Loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0.1) 25%, 
+    rgba(255,255,255,0.2) 50%, 
+    rgba(255,255,255,0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Modern Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Focus Styles */
+.focus-ring {
+  outline: none;
+}
+
+.focus-ring:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.2);
+  outline-offset: 2px;
+}
+
+/* Backdrop Blur Utilities */
+.backdrop-blur-strong {
+  backdrop-filter: blur(40px);
+}
+
+.backdrop-blur-medium {
+  backdrop-filter: blur(20px);
+}
+
+.backdrop-blur-light {
+  backdrop-filter: blur(10px);
+}
+
+/* Modern Button Styling */
+.btn-modern {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.btn-modern:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.btn-modern:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  border: transparent;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to right, #2563eb, #7c3aed);
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+}
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Pulse Glow Animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+/* Performance optimizations for glow effects */
+.glow-on-hover,
+.glow-on-hover-circle {
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Responsive Text Sizes */
+.text-responsive-xl {
+  font-size: 2.25rem;
+}
+
+@media (min-width: 768px) {
+  .text-responsive-xl {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-responsive-xl {
+    font-size: 3.75rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .text-responsive-xl {
+    font-size: 4.5rem;
+  }
+}
+
+.text-responsive-lg {
+  font-size: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .text-responsive-lg {
+    font-size: 1.875rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-responsive-lg {
+    font-size: 2.25rem;
+  }
+}
+
+.text-responsive-md {
+  font-size: 1.125rem;
+}
+
+@media (min-width: 768px) {
+  .text-responsive-md {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-responsive-md {
+    font-size: 1.5rem;
+  }
 }

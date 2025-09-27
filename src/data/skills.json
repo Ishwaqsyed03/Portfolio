@@ -1,0 +1,137 @@
+[
+  {
+    "id": "df89c491-dcac-436b-b517-ab4e82425ab8",
+    "name": "Flutter with Firebase Authentication",
+    "level": 81,
+    "category": "Frontend",
+    "icon": "code",
+    "createdAt": "2025-09-26T14:09:52.766Z",
+    "updatedAt": "2025-09-26T14:09:52.766Z"
+  },
+  {
+    "id": "112940ac-4dba-4336-a244-0128cfdddd16",
+    "name": "Modern Gen Z-styled Websites",
+    "level": 93,
+    "category": "Frontend",
+    "icon": "code",
+    "createdAt": "2025-09-26T14:09:52.766Z",
+    "updatedAt": "2025-09-26T14:09:52.766Z"
+  },
+  {
+    "id": "bb7bef24-9d1f-4a82-a513-8cf3c7e9777a",
+    "name": "Node.js & FastAPI Backend",
+    "level": 80,
+    "category": "Frontend",
+    "icon": "code",
+    "createdAt": "2025-09-26T14:09:52.766Z",
+    "updatedAt": "2025-09-26T14:09:52.766Z"
+  },
+  {
+    "id": "41ecd8ca-25c1-44e0-9cc1-db8621e90f8b",
+    "name": "Python Development",
+    "level": 90,
+    "category": "Frontend",
+    "icon": "code",
+    "createdAt": "2025-09-26T14:09:52.766Z",
+    "updatedAt": "2025-09-26T14:09:52.766Z"
+  },
+  {
+    "id": "195587e3-bf20-4f89-9f22-a3d66e998cca",
+    "name": "Responsive UI/UX Design",
+    "level": 90,
+    "category": "Frontend",
+    "icon": "code",
+    "createdAt": "2025-09-26T14:09:52.766Z",
+    "updatedAt": "2025-09-26T14:09:52.766Z"
+  },
+  {
+    "id": "27e21bb6-ca15-45df-80de-52eba9622ca7",
+    "name": "Mistral 7B & DeepSeek Models",
+    "level": 97,
+    "category": "AI/ML",
+    "icon": "robot",
+    "createdAt": "2025-09-26T14:09:52.766Z",
+    "updatedAt": "2025-09-26T14:09:52.766Z"
+  },
+  {
+    "id": "9634890c-5491-4ed1-a100-433a10209178",
+    "name": "Hugging Face Transformers",
+    "level": 90,
+    "category": "AI/ML",
+    "icon": "robot",
+    "createdAt": "2025-09-26T14:09:52.766Z",
+    "updatedAt": "2025-09-26T14:09:52.766Z"
+  },
+  {
+    "id": "ce0e75c9-e593-4527-8b3c-93dc8de33df1",
+    "name": "Llama Models on GPU",
+    "level": 80,
+    "category": "AI/ML",
+    "icon": "robot",
+    "createdAt": "2025-09-26T14:09:52.766Z",
+    "updatedAt": "2025-09-26T14:09:52.766Z"
+  },
+  {
+    "id": "3872c287-6f7f-47ac-9e85-958fa29ec724",
+    "name": "AI-powered Tools & Automation",
+    "level": 90,
+    "category": "AI/ML",
+    "icon": "robot",
+    "createdAt": "2025-09-26T14:09:52.766Z",
+    "updatedAt": "2025-09-26T14:09:52.766Z"
+  },
+  {
+    "id": "4a1e655b-9961-47dd-be26-21affc238d0a",
+    "name": "Misinformation Detection Systems",
+    "level": 97,
+    "category": "AI/ML",
+    "icon": "robot",
+    "createdAt": "2025-09-26T14:09:52.766Z",
+    "updatedAt": "2025-09-26T14:09:52.766Z"
+  },
+  {
+    "id": "8c02eea4-f1bb-44fe-b1a6-a3c99d0e4c9f",
+    "name": "OAuth Flows Implementation",
+    "level": 80,
+    "category": "Backend",
+    "icon": "share",
+    "createdAt": "2025-09-26T14:09:52.766Z",
+    "updatedAt": "2025-09-26T14:09:52.766Z"
+  },
+  {
+    "id": "7ba9b5b1-e49b-4127-96ad-2af8dcb167f4",
+    "name": "Twitter & Instagram APIs",
+    "level": 92,
+    "category": "Backend",
+    "icon": "share",
+    "createdAt": "2025-09-26T14:09:52.767Z",
+    "updatedAt": "2025-09-26T14:09:52.767Z"
+  },
+  {
+    "id": "e3a5b92b-d18a-49e1-9e83-080e8e62af3a",
+    "name": "LinkedIn & Reddit Integration",
+    "level": 86,
+    "category": "Backend",
+    "icon": "share",
+    "createdAt": "2025-09-26T14:09:52.767Z",
+    "updatedAt": "2025-09-26T14:09:52.767Z"
+  },
+  {
+    "id": "d6b8fbb4-b094-41e8-acd5-00415394ffcc",
+    "name": "Threads & Facebook APIs",
+    "level": 87,
+    "category": "Backend",
+    "icon": "share",
+    "createdAt": "2025-09-26T14:09:52.767Z",
+    "updatedAt": "2025-09-26T14:09:52.767Z"
+  },
+  {
+    "id": "988fe9c1-18ba-4b87-926d-c3476fb92c2d",
+    "name": "Modular Backend Architecture",
+    "level": 80,
+    "category": "Backend",
+    "icon": "share",
+    "createdAt": "2025-09-26T14:09:52.767Z",
+    "updatedAt": "2025-09-26T14:09:52.767Z"
+  }
+]

@@ -1,0 +1,173 @@
+"use client";
+import { motion, AnimatePresence } from "framer-motion";
+import { PROJECTS } from "../content/data";
+import { useState } from "react";
+import CaseStudyModal from "./CaseStudyModal";
+
+export default function ProjectsGrid() {
+  const [open, setOpen] = useState<null | number>(null);
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+
+  return (
+    <>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {PROJECTS.map((project, idx) => (
+          <div
+            key={project.title}
+            onMouseEnter={() => setHoveredProject(idx)}
+            onMouseLeave={() => setHoveredProject(null)}
+            className="group relative cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+          >
+            <div
+              className="relative rounded-2xl border border-white/20 bg-white/10 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-white/30 hover:bg-white/15"
+            >
+              <button 
+                className="absolute inset-0 z-10" 
+                aria-label={`Open ${project.title} case study`} 
+                onClick={() => setOpen(idx)} 
+              />
+              
+              {/* Simple Background Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-sky-500/5 to-fuchsia-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              
+              <div className="relative z-10 p-6">
+                {/* Project Preview Image (AI-generated) */}
+                <div className="h-32 rounded-lg mb-4 relative overflow-hidden">
+                  {project.image ? (
+                    (() => {
+                      // Add a cache-busting query param for local generated images in development
+                      const isDev = typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'development';
+                      const isLocal = project.image.startsWith('/project-images/');
+                      const src = isLocal && isDev ? `${project.image}?v=${Date.now()}` : project.image;
+                      return (
+                        <img
+                          src={src}
+                          alt={project.title + " preview"}
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          style={{ borderRadius: '0.75rem' }}
+                        />
+                      );
+                    })()
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-sky-500/20 to-fuchsia-500/20" />
+                  )}
+                  <div className="absolute bottom-2 right-2 text-xs font-medium bg-black/50 backdrop-blur-sm px-2 py-1 rounded">
+                    {project.type}
+                  </div>
+                </div>
+
+                {/* Header */}
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className="text-xl font-semibold group-hover:text-white transition-colors duration-300">
+                      {project.title}
+                    </h3>
+                    <div className="text-sky-400 text-sm font-semibold group-hover:text-sky-300 transition-colors duration-300">
+                      {project.type}
+                    </div>
+                  </div>
+                  <span className="rounded-md text-xs px-2 py-1 border border-white/20 bg-white/10 backdrop-blur-sm">
+                    {project.status}
+                  </span>
+                </div>
+
+                {/* Basic Description */}
+                <p className="text-zinc-300 text-sm mb-3 group-hover:text-zinc-200 transition-colors duration-300">
+                  {project.description}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tags.slice(0, 3).map((tag) => (
+                    <span key={tag} className="text-xs rounded-md border border-white/20 bg-white/10 px-2 py-1 text-zinc-300">
+                      {tag}
+                    </span>
+                  ))}
+                  {project.tags.length > 3 && (
+                    <span className="text-xs rounded-md border border-white/20 bg-white/10 px-2 py-1 text-zinc-400">
+                      +{project.tags.length - 3}
+                    </span>
+                  )}
+                </div>
+
+                {/* Expanded Content */}
+                {hoveredProject === idx && (
+                  <div
+                    className="border-t border-white/10 pt-4 mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  >
+                      {/* Detailed Description */}
+                      <p className="text-zinc-200 text-sm mb-4 leading-relaxed">
+                        {project.detailedDescription}
+                      </p>
+
+                      {/* Key Features */}
+                      <div className="mb-4">
+                        <h4 className="text-sm font-semibold text-white mb-2">Key Features:</h4>
+                        <div className="grid grid-cols-2 gap-1">
+                          {project.features.slice(0, 4).map((feature, i) => (
+                            <div key={i} className="text-xs text-zinc-300 flex items-center">
+                              <span className="w-1 h-1 bg-sky-400 rounded-full mr-2" />
+                              {feature}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Tech Stack */}
+                      <div className="mb-4">
+                        <h4 className="text-sm font-semibold text-white mb-2">Tech Stack:</h4>
+                        <div className="flex flex-wrap gap-1">
+                          {project.tech.map((tech) => (
+                            <span key={tech} className="text-xs bg-gradient-to-r from-sky-500/20 to-purple-500/20 border border-sky-500/30 px-2 py-1 rounded text-zinc-200">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Stats */}
+                      <div className="mb-4">
+                        <h4 className="text-sm font-semibold text-white mb-2">Project Stats:</h4>
+                        <div className="grid grid-cols-3 gap-2">
+                          {Object.entries(project.stats).map(([key, value]) => (
+                            <div key={key} className="text-center">
+                              <div className="text-sm font-bold text-sky-400">{value}</div>
+                              <div className="text-xs text-zinc-400 capitalize">{key}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Links - Always Visible */}
+                <div className="flex gap-3 mt-auto">
+                  {project.links.map((link) => (
+                    <a 
+                      key={link.label} 
+                      href={link.href} 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      className="text-sm text-sky-400 hover:text-sky-300 transition-colors duration-200 font-medium"
+                    >
+                      {link.label} →
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <CaseStudyModal
+        open={open !== null}
+        onClose={() => setOpen(null)}
+        title={open !== null ? PROJECTS[open].title : ""}
+        description={open !== null ? PROJECTS[open].description : ""}
+        media={open !== null ? [{ src: "/nebula.jpg", alt: PROJECTS[open].title }] : []}
+      />
+    </>
+  );
+}
