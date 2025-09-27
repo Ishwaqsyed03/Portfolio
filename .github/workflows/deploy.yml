@@ -38,56 +38,11 @@ jobs:
 
       - name: Build with Next.js for static export
         run: |
-          # Create a temporary next.config.ts for static export
-          cat > next.config.ts << 'EOF'
-          import type { NextConfig } from "next";
-          import withPWAInit from "next-pwa";
-
-          const withPWA = withPWAInit({
-            dest: "public",
-            register: true,
-            skipWaiting: true,
-            disable: process.env.NODE_ENV === "development",
-          });
-
-          const nextConfig: NextConfig = {
-            output: 'export',
-            trailingSlash: true,
-            skipTrailingSlashRedirect: true,
-            distDir: 'out',
-            images: {
-              unoptimized: true,
-            },
-            assetPrefix: '/Portfolio',
-            basePath: '/Portfolio',
-          };
-
-          export default withPWA(nextConfig);
-          EOF
-          
-          # Remove admin and API routes for static build
-          echo "Removing admin and API routes..."
-          rm -rf src/app/admin || true
-          rm -rf src/app/api || true
-          
-          # Remove any components that depend on admin functionality
-          echo "Checking for admin dependencies..."
-          find src/components -name "*admin*" -type f -delete || true
-          
-          # Build the static site
-          echo "Building static site..."
+          echo "Building Next.js static site..."
           npm run build
           
-          # Verify the out directory was created
-          echo "Checking build output..."
-          ls -la
-          if [ -d "out" ]; then
-            echo "✅ Build successful - out directory created"
-            ls -la out/
-          else
-            echo "❌ Build failed - out directory not found"
-            exit 1
-          fi
+          echo "✅ Build completed successfully"
+          ls -la out/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
