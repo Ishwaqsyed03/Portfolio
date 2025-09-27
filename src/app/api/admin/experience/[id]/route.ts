@@ -34,7 +34,7 @@ function writeExperiences(experiences: Experience[]): void {
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   const admin = verifyAdminToken(request);
   if (!admin) {
@@ -42,7 +42,7 @@ export async function PUT(
   }
 
   try {
-    const { id } = await params;
+    const { id } = await context.params;
     const body = await request.json();
     const { company, position, description, startDate, endDate, current, location, technologies } = body;
 
@@ -100,7 +100,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   const admin = verifyAdminToken(request);
   if (!admin) {
@@ -108,7 +108,7 @@ export async function DELETE(
   }
 
   try {
-    const { id } = await params;
+    const { id } = await context.params;
     const experiences = readExperiences();
     const experienceIndex = experiences.findIndex(e => e.id === id);
 

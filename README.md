@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio
 
-## Getting Started
+## 🚀 Modern Portfolio with Admin Panel
 
-First, run the development server:
+A Next.js 15 portfolio featuring dynamic content management and stunning visual effects.
+
+### ✨ Features
+
+- **Modern Tech Stack**: Next.js 15, React 19, TypeScript
+- **Admin Dashboard**: Full content management system at `/admin`
+- **Dynamic Backgrounds**: Interactive shader-based visual themes
+- **Responsive Design**: Mobile-first approach with modern UI/UX
+- **Content Management**: Projects, skills, and experience CRUD operations
+- **File Uploads**: Image and resume upload functionality
+- **Authentication**: Secure admin authentication with JWT
+- **PWA Support**: Progressive Web App with offline capabilities
+
+### 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS
+- **Authentication**: JSON Web Tokens (JWT)
+- **File Storage**: Local file system with image upload
+- **UI Components**: Custom components with Framer Motion
+- **Graphics**: WebGL shaders for dynamic backgrounds
+- **Build Tools**: Next.js with TypeScript configuration
+
+### 🚀 Getting Started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the portfolio.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 👨‍💻 Admin Access
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Access the admin dashboard at `/admin` to manage:
+- Projects and portfolio items
+- Skills and technologies  
+- Work experience
+- Profile photo
+- Site settings
 
-## Learn More
+**Default admin password**: `admin123` (change this after first login)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Built with ❤️ by Ishwaq Syed**

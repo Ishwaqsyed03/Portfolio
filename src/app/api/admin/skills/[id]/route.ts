@@ -30,7 +30,7 @@ function writeSkills(skills: Skill[]): void {
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   const admin = verifyAdminToken(request);
   if (!admin) {
@@ -38,7 +38,7 @@ export async function PUT(
   }
 
   try {
-    const { id } = await params;
+    const { id } = await context.params;
     const body = await request.json();
     const { name, level, category, icon } = body;
 
@@ -92,7 +92,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   const admin = verifyAdminToken(request);
   if (!admin) {
@@ -100,7 +100,7 @@ export async function DELETE(
   }
 
   try {
-    const { id } = await params;
+    const { id } = await context.params;
     const skills = readSkills();
     const skillIndex = skills.findIndex(s => s.id === id);
 

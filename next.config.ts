@@ -8,6 +8,17 @@ const withPWA = withPWAInit({
   disable: process.env.NODE_ENV === "development",
 });
 
-const nextConfig: NextConfig = {};
+const nextConfig: NextConfig = {
+  // Temporarily disable static export for development
+  // output: 'export',
+  trailingSlash: true,
+  skipTrailingSlashRedirect: true,
+  distDir: 'out',
+  images: {
+    unoptimized: true,
+  },
+  // assetPrefix: process.env.NODE_ENV === 'production' ? '/Portfolio' : '',
+  // basePath: process.env.NODE_ENV === 'production' ? '/Portfolio' : '',
+};
 
 export default withPWA(nextConfig);

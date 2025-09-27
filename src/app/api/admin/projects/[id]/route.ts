@@ -33,7 +33,7 @@ function writeProjects(projects: Project[]): void {
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   const admin = verifyAdminToken(request);
   if (!admin) {
@@ -41,7 +41,7 @@ export async function PUT(
   }
 
   try {
-    const { id } = await params;
+    const { id } = await context.params;
     const body = await request.json();
     const { title, description, technologies, image, github, live, featured } = body;
 
@@ -91,7 +91,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   const admin = verifyAdminToken(request);
   if (!admin) {
@@ -99,7 +99,7 @@ export async function DELETE(
   }
 
   try {
-    const { id } = await params;
+    const { id } = await context.params;
     const projects = readProjects();
     const projectIndex = projects.findIndex(p => p.id === id);
 
