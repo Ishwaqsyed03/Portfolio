@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import CaseStudyModal from "./CaseStudyModal";
+import projectsData from "../data/projects.json";
 
 interface Project {
   id: string;
@@ -23,28 +24,9 @@ export default function ProjectsGrid() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        // Add cache busting parameter to avoid browser cache
-        const timestamp = new Date().getTime();
-        const response = await fetch(`/api/projects?t=${timestamp}`, {
-          cache: 'no-store',
-          headers: {
-            'Cache-Control': 'no-cache',
-          }
-        });
-        if (response.ok) {
-          const data = await response.json();
-          setProjects(data.projects || []);
-        }
-      } catch (error) {
-        console.error('Failed to fetch projects:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
+    // Use imported projects data directly
+    setProjects(projectsData || []);
+    setLoading(false);
   }, []);
 
   if (loading) {
