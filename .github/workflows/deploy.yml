@@ -65,74 +65,29 @@ jobs:
           export default withPWA(nextConfig);
           EOF
           
-          # Create a simple layout without admin routes for static export
-          cat > src/app/layout-static.tsx << 'EOF'
-          import type { Metadata, Viewport } from "next";
-          import { Inter, JetBrains_Mono } from "next/font/google";
-          import "./globals.css";
-          import { ReactNode } from "react";
-          import Navbar from "../components/Navbar";
-          import CommandPalette from "../components/CommandPalette";
-          import { SITE } from "../content/data";
-          import PurpleFlameBackground from "../components/PurpleFlameBackground";
-
-          const inter = Inter({ variable: "--font-sans", subsets: ["latin"] });
-          const mono = JetBrains_Mono({ variable: "--font-mono", subsets: ["latin"] });
-
-          export const metadata: Metadata = {
-            title: SITE.title,
-            description: SITE.description,
-            icons: { icon: "/icons/icon-192.png" },
-            manifest: "/site.webmanifest",
-            metadataBase: new URL("https://ishwaqsyed03.github.io/Portfolio/"),
-            openGraph: {
-              title: SITE.title,
-              description: SITE.description,
-              type: "website",
-              images: ["/Portfolio/nebula.jpg"],
-              url: "/Portfolio/",
-            },
-            twitter: {
-              card: "summary_large_image",
-              title: SITE.title,
-              description: SITE.description,
-              images: ["/Portfolio/nebula.jpg"],
-            },
-          };
-
-          export const viewport: Viewport = {
-            themeColor: "#0f0f23",
-          };
-
-          export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-            return (
-              <html lang="en">
-                <head>
-                  <meta name="viewport" content="width=device-width, initial-scale=1" />
-                  <meta name="theme-color" content="#0ea5e9" />
-                  <link rel="manifest" href="/Portfolio/site.webmanifest" />
-                </head>
-                  <body className={`${inter.variable} ${mono.variable} antialiased bg-black text-white`}>
-                    <PurpleFlameBackground />
-                    <a href="#content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 z-50 bg-black text-white px-3 py-2 rounded">Skip to content</a>
-                    <Navbar />
-                    <CommandPalette />
-                    <div id="content">{children}</div>
-                  </body>
-              </html>
-            );
-          }
-          EOF
-          
           # Remove admin and API routes for static build
+          echo "Removing admin and API routes..."
           rm -rf src/app/admin || true
           rm -rf src/app/api || true
           
-          # Replace layout.tsx with static version
-          mv src/app/layout-static.tsx src/app/layout.tsx
+          # Remove any components that depend on admin functionality
+          echo "Checking for admin dependencies..."
+          find src/components -name "*admin*" -type f -delete || true
           
           # Build the static site
+          echo "Building static site..."
           npm run build
+          
+          # Verify the out directory was created
+          echo "Checking build output..."
+          ls -la
+          if [ -d "out" ]; then
+            echo "✅ Build successful - out directory created"
+            ls -la out/
+          else
+            echo "❌ Build failed - out directory not found"
+            exit 1
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
