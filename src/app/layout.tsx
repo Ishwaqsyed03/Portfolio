@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+// import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
 import Navbar from "../components/Navbar";
@@ -8,8 +8,9 @@ import CommandPalette from "../components/CommandPalette";
 import { SITE } from "../content/data";
 import PurpleFlameBackground from "../components/PurpleFlameBackground";
 
-const inter = Inter({ variable: "--font-sans", subsets: ["latin"] });
-const mono = JetBrains_Mono({ variable: "--font-mono", subsets: ["latin"] });
+// Temporary fallback for fonts during development
+const inter = { variable: "--font-sans" };
+const mono = { variable: "--font-mono" };
 
 export const metadata: Metadata = {
   title: SITE.title,
