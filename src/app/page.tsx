@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion, MotionConfig, useReducedMotion } from "framer-motion";
-import Image from "next/image";
 import ProjectsGrid from "../components/ProjectsGrid";
 import Experience from "../components/Experience";
 import Footer from "../components/Footer";
@@ -14,6 +13,7 @@ import { ShaderCanvas } from "@/components/ShaderCanvas";
 import { ShaderSelector } from "@/components/ShaderSelector";
 import { ScrollShaderBackground } from "@/components/ScrollShaderBackground";
 import { SITE } from "../content/data";
+import profileData from "../data/profile.json";
 
 function useTypingEffect(text: string, speed: number = 60) {
   const [index, setIndex] = useState(0);
@@ -64,17 +64,10 @@ export default function Home() {
       setSelectedShader(parseInt(savedShader, 10));
     }
     
-    // Load profile image
-    fetch('/api/profile')
-      .then(response => response.json())
-      .then(data => {
-        if (data.profileImage) {
-          setProfileImage(data.profileImage);
-        }
-      })
-      .catch(error => {
-        console.error('Error loading profile image:', error);
-      });
+    // Load profile image from imported data
+    if (profileData.profileImage) {
+      setProfileImage(profileData.profileImage);
+    }
   }, []);
 
   const handleSelectShader = (id: number) => {

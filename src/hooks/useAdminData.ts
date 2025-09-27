@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import projectsData from '../data/projects.json';
 
 export interface Project {
   id: string;
@@ -37,24 +38,15 @@ export function useProjects() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await fetch('/api/projects');
-        if (response.ok) {
-          const data = await response.json();
-          setProjects(data.projects || []);
-        } else {
-          setError('Failed to load projects');
-        }
-      } catch (err) {
-        setError('Failed to load projects');
-        console.error('Error loading projects:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
+    // Use imported projects data directly
+    try {
+      setProjects(projectsData || []);
+    } catch (err) {
+      setError('Failed to load projects');
+      console.error('Error loading projects:', err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   return { projects, loading, error };
