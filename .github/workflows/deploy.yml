@@ -1,5 +1,13 @@
 name: Deploy to GitHub Pages
 
+# IMPORTANT: For this to work properly, make sure GitHub Pages is configured to:
+# 1. Source: GitHub Actions (not "Deploy from a branch")
+# 2. Go to repo Settings > Pages > Source > select "GitHub Actions"
+# 
+# If you see README content instead of the portfolio:
+# - Check that GitHub Pages source is set to "GitHub Actions"  
+# - The live link should be: https://username.github.io/Portfolio/
+
 on:
   push:
     branches:
@@ -43,6 +51,15 @@ jobs:
           
           echo "✅ Build completed successfully"
           ls -la out/
+          echo ""
+          echo "📄 Checking index.html exists:"
+          ls -la out/index.html
+          echo ""
+          echo "🔍 Verifying .nojekyll file:"
+          ls -la out/.nojekyll
+          echo ""
+          echo "📝 First few lines of index.html:"
+          head -5 out/index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

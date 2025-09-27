@@ -8,7 +8,7 @@ import CommandPalette from "../components/CommandPalette";
 import { SITE } from "../content/data";
 import PurpleFlameBackground from "../components/PurpleFlameBackground";
 
-// Temporary fallback for fonts during development
+// Temporary fallback for fonts during development - will work with system fonts
 const inter = { variable: "--font-sans" };
 const mono = { variable: "--font-mono" };
 
