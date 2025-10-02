@@ -50,7 +50,7 @@ function useTypingEffect(text: string, speed: number = 60) {
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [selectedShader, setSelectedShader] = useState(1);
-  const [profileImage, setProfileImage] = useState('/project-images/1758475845776.jpg');
+  const [profileImage] = useState('/project-images/1758475845776.jpg');
   const prefersReducedMotion = useReducedMotion();
   
   // Call all hooks at the top level
@@ -63,18 +63,6 @@ export default function Home() {
     if (savedShader) {
       setSelectedShader(parseInt(savedShader, 10));
     }
-    
-    // Load profile image
-    fetch('/api/profile')
-      .then(response => response.json())
-      .then(data => {
-        if (data.profileImage) {
-          setProfileImage(data.profileImage);
-        }
-      })
-      .catch(error => {
-        console.error('Error loading profile image:', error);
-      });
   }, []);
 
   const handleSelectShader = (id: number) => {
