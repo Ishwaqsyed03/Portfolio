@@ -50,7 +50,7 @@ function useTypingEffect(text: string, speed: number = 60) {
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [selectedShader, setSelectedShader] = useState(1);
-  const [profileImage] = useState('/project-images/1758475845776.jpg');
+  const [profileImage] = useState('/Portfolio/project-images/1758475845776.jpg');
   const prefersReducedMotion = useReducedMotion();
   
   // Call all hooks at the top level
@@ -280,7 +280,7 @@ export default function Home() {
                         className="w-full h-full rounded-full object-cover"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
-                          target.src = '/project-images/1758475845776.jpg'; // fallback
+                          target.src = '/Portfolio/project-images/1758475845776.jpg'; // fallback
                         }}
                       />
                       
