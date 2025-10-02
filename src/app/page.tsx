@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion, MotionConfig, useReducedMotion } from "framer-motion";
-import Image from "next/image";
 import ProjectsGrid from "../components/ProjectsGrid";
 import Experience from "../components/Experience";
 import Footer from "../components/Footer";
@@ -10,7 +9,6 @@ import ContactForm from "../components/ContactForm";
 import SmoothScrollWrapper from "../components/SmoothScrollWrapper";
 import PerformanceMonitor from "../components/PerformanceMonitor";
 import SkillsSection from "../components/SkillsSection";
-import { ShaderCanvas } from "@/components/ShaderCanvas";
 import { ShaderSelector } from "@/components/ShaderSelector";
 import { ScrollShaderBackground } from "@/components/ScrollShaderBackground";
 import { SITE } from "../content/data";
@@ -63,7 +61,7 @@ function useTypingEffect(text: string, speed: number = 60) {
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [selectedShader, setSelectedShader] = useState(1);
-  const [profileImage, setProfileImage] = useState(getAssetPath(profileData.profileImage || '/project-images/1758475845776.jpg'));
+  const profileImage = getAssetPath(profileData.profileImage || '/project-images/1758475845776.jpg');
   const prefersReducedMotion = useReducedMotion();
   
   // Call all hooks at the top level

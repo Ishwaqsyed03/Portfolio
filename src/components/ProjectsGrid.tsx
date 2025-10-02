@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CaseStudyModal from "./CaseStudyModal";
 import projectsData from "../data/projects.json";
 
@@ -33,13 +33,11 @@ export default function ProjectsGrid() {
   const [open, setOpen] = useState<null | number>(null);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   // Process projects data to ensure correct image paths
-  const [projects, setProjects] = useState<Project[]>(
-    (projectsData as Project[]).map(project => ({
-      ...project,
-      image: getAssetPath(project.image)
-    }))
-  );
-  const [loading, setLoading] = useState(false);
+  const projects: Project[] = (projectsData as Project[]).map(project => ({
+    ...project,
+    image: getAssetPath(project.image)
+  }));
+  const loading = false;
 
   if (loading) {
     return (
