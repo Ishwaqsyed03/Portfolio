@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
 import Navbar from "../components/Navbar";
@@ -8,8 +7,9 @@ import CommandPalette from "../components/CommandPalette";
 import { SITE } from "../content/data";
 import PurpleFlameBackground from "../components/PurpleFlameBackground";
 
-const inter = Inter({ variable: "--font-sans", subsets: ["latin"] });
-const mono = JetBrains_Mono({ variable: "--font-mono", subsets: ["latin"] });
+// Using system fonts to avoid Google Fonts fetching issues in sandboxed environments
+// These CSS variables are defined in globals.css
+const fontVariables = "";
 
 export const metadata: Metadata = {
   title: SITE.title,
@@ -44,7 +44,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <meta name="theme-color" content="#0ea5e9" />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-        <body className={`${inter.variable} ${mono.variable} antialiased bg-black text-white`}>
+        <body className={`${fontVariables} antialiased bg-black text-white font-sans`}>
           <PurpleFlameBackground />
           <a href="#content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 z-50 bg-black text-white px-3 py-2 rounded">Skip to content</a>
           <Navbar />
