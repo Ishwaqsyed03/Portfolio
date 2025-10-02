@@ -14,6 +14,19 @@ import { ShaderCanvas } from "@/components/ShaderCanvas";
 import { ShaderSelector } from "@/components/ShaderSelector";
 import { ScrollShaderBackground } from "@/components/ScrollShaderBackground";
 import { SITE } from "../content/data";
+import profileData from "../data/profile.json";
+
+// Helper function to get the correct asset path for GitHub Pages
+function getAssetPath(path: string): string {
+  if (!path || path.startsWith('http://') || path.startsWith('https://')) {
+    return path;
+  }
+  // For GitHub Pages deployment, we need to prefix paths with /Portfolio
+  // This is determined at build time from next.config.ts
+  // In production builds, the basePath is /Portfolio
+  const basePath = process.env.NODE_ENV === 'production' ? '/Portfolio' : '';
+  return path.startsWith('/') ? `${basePath}${path}` : path;
+}
 
 function useTypingEffect(text: string, speed: number = 60) {
   const [index, setIndex] = useState(0);
@@ -50,7 +63,7 @@ function useTypingEffect(text: string, speed: number = 60) {
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [selectedShader, setSelectedShader] = useState(1);
-  const [profileImage, setProfileImage] = useState('/project-images/1758475845776.jpg');
+  const [profileImage, setProfileImage] = useState(getAssetPath(profileData.profileImage || '/project-images/1758475845776.jpg'));
   const prefersReducedMotion = useReducedMotion();
   
   // Call all hooks at the top level
@@ -63,18 +76,6 @@ export default function Home() {
     if (savedShader) {
       setSelectedShader(parseInt(savedShader, 10));
     }
-    
-    // Load profile image
-    fetch('/api/profile')
-      .then(response => response.json())
-      .then(data => {
-        if (data.profileImage) {
-          setProfileImage(data.profileImage);
-        }
-      })
-      .catch(error => {
-        console.error('Error loading profile image:', error);
-      });
   }, []);
 
   const handleSelectShader = (id: number) => {
