@@ -1,7 +1,20 @@
 "use client";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CaseStudyModal from "./CaseStudyModal";
+import projectsData from "../data/projects.json";
+
+// Helper function to get the correct asset path for GitHub Pages
+function getAssetPath(path: string): string {
+  if (!path || path.startsWith('http://') || path.startsWith('https://')) {
+    return path;
+  }
+  // For GitHub Pages deployment, we need to prefix paths with /Portfolio
+  // This is determined at build time from next.config.ts
+  // In production builds, the basePath is /Portfolio
+  const basePath = process.env.NODE_ENV === 'production' ? '/Portfolio' : '';
+  return path.startsWith('/') ? `${basePath}${path}` : path;
+}
 
 interface Project {
   id: string;
@@ -19,33 +32,12 @@ interface Project {
 export default function ProjectsGrid() {
   const [open, setOpen] = useState<null | number>(null);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        // Add cache busting parameter to avoid browser cache
-        const timestamp = new Date().getTime();
-        const response = await fetch(`/api/projects?t=${timestamp}`, {
-          cache: 'no-store',
-          headers: {
-            'Cache-Control': 'no-cache',
-          }
-        });
-        if (response.ok) {
-          const data = await response.json();
-          setProjects(data.projects || []);
-        }
-      } catch (error) {
-        console.error('Failed to fetch projects:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
+  // Process projects data to ensure correct image paths
+  const projects: Project[] = (projectsData as Project[]).map(project => ({
+    ...project,
+    image: getAssetPath(project.image)
+  }));
+  const loading = false;
 
   if (loading) {
     return (
