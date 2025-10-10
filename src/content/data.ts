@@ -125,6 +125,33 @@ export const PROJECTS = [
     ],
   },
   {
+    title: "AI-FOLIO",
+    type: "AI Portfolio Builder",
+    status: "Live",
+    description:
+      "AI-powered portfolio maker: create a portfolio by chatting or uploading your resume, then get 10 unique downloadable templates and a live site.",
+    detailedDescription:
+      "AI-FOLIO is an AI-based portfolio builder that lets users create a professional portfolio by answering a chatbot's questions or uploading their resume. The system scans the resume, extracts key information, and automatically generates 10 different portfolio template designs. Users can download a zip folder containing HTML, CSS, and JS files for all templates, and also get a live website link.",
+    features: [
+      "Conversational chatbot for guided portfolio creation",
+      "Resume upload and automatic parsing",
+      "AI-driven content extraction and formatting",
+      "10 unique portfolio template designs",
+      "Downloadable zip with HTML, CSS, JS for all templates",
+      "Instant live website deployment",
+      "Customizable sections and themes",
+      "Mobile-friendly and accessible",
+      "Shareable portfolio link",
+      "Hosted at aifolio.ishwaqsyed.me"
+    ],
+    tech: ["Next.js", "OpenAI API", "Node.js", "Express", "Resume Parsing", "HTML/CSS/JS", "Vercel"],
+    stats: { templates: "10", users: "1K+", resumesParsed: "2K+" },
+    tags: ["AI", "Portfolio", "Chatbot", "Resume Parsing", "Web Templates"],
+    links: [
+      { label: "Live Website", href: "https://aifolio.ishwaqsyed.me" }
+    ],
+  },
+  {
     title: "Steward Labs",
     type: "AI Brand Manager",
     status: "Beta",
