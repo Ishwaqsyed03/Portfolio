@@ -52,25 +52,7 @@ export default function Navbar() {
                 className="group relative px-4 py-2 rounded-lg bg-transparent hover:text-white transition-all duration-300 overflow-hidden nav-button-effect"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-purple-600/10 via-purple-500/15 to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                <span className="relative z-10 font-medium">Experience</span>
-              </Link>
-            </li>
-            <li>
-              <Link 
-                href="#trusted" 
-                className="group relative px-4 py-2 rounded-lg bg-transparent hover:text-white transition-all duration-300 overflow-hidden nav-button-effect"
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-purple-600/10 via-purple-500/15 to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                <span className="relative z-10 font-medium">Trusted By</span>
-              </Link>
-            </li>
-            <li>
-              <Link 
-                href="#testimonials" 
-                className="group relative px-4 py-2 rounded-lg bg-transparent hover:text-white transition-all duration-300 overflow-hidden nav-button-effect"
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-purple-600/10 via-purple-500/15 to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                <span className="relative z-10 font-medium">Testimonials</span>
+                <span className="relative z-10 font-medium">Academic</span>
               </Link>
             </li>
             <li>
@@ -124,27 +106,7 @@ export default function Navbar() {
                   className="group relative block py-3 px-4 rounded-lg bg-transparent hover:text-white transition-all duration-300 overflow-hidden nav-button-effect"
                 >
                   <span className="absolute inset-0 bg-gradient-to-r from-purple-600/10 via-purple-500/15 to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                  <span className="relative z-10 font-medium">Experience</span>
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="#trusted" 
-                  onClick={() => setOpen(false)} 
-                  className="group relative block py-3 px-4 rounded-lg bg-transparent hover:text-white transition-all duration-300 overflow-hidden nav-button-effect"
-                >
-                  <span className="absolute inset-0 bg-gradient-to-r from-purple-600/10 via-purple-500/15 to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                  <span className="relative z-10 font-medium">Trusted By</span>
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="#testimonials" 
-                  onClick={() => setOpen(false)} 
-                  className="group relative block py-3 px-4 rounded-lg bg-transparent hover:text-white transition-all duration-300 overflow-hidden nav-button-effect"
-                >
-                  <span className="absolute inset-0 bg-gradient-to-r from-purple-600/10 via-purple-500/15 to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                  <span className="relative z-10 font-medium">Testimonials</span>
+                  <span className="relative z-10 font-medium">Academic</span>
                 </Link>
               </li>
               <li>

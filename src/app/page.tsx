@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { motion, MotionConfig, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import ProjectsGrid from "../components/ProjectsGrid";
@@ -9,11 +10,17 @@ import Footer from "../components/Footer";
 import ContactForm from "../components/ContactForm";
 import SmoothScrollWrapper from "../components/SmoothScrollWrapper";
 import PerformanceMonitor from "../components/PerformanceMonitor";
-import SkillsSection from "../components/SkillsSection";
-import { ShaderCanvas } from "@/components/ShaderCanvas";
-import { ShaderSelector } from "@/components/ShaderSelector";
-import { ScrollShaderBackground } from "@/components/ScrollShaderBackground";
 import { SITE } from "../content/data";
+
+// Lazy-load the heavy WebGL (three.js) shader UI so it doesn't block the first paint.
+const ScrollShaderBackground = dynamic(
+  () => import("@/components/ScrollShaderBackground").then((m) => m.ScrollShaderBackground),
+  { ssr: false }
+);
+const ShaderSelector = dynamic(
+  () => import("@/components/ShaderSelector").then((m) => m.ShaderSelector),
+  { ssr: false }
+);
 
 function useTypingEffect(text: string, speed: number = 60) {
   const [index, setIndex] = useState(0);
@@ -50,11 +57,12 @@ function useTypingEffect(text: string, speed: number = 60) {
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [selectedShader, setSelectedShader] = useState(1);
-  const [profileImage] = useState('/Portfolio/project-images/1758475845776.jpg');
+  const basePath = process.env.NODE_ENV === 'production' ? '/Portfolio' : '';
+  const [profileImage] = useState(`${basePath}/project-images/1758475845776.jpg`);
   const prefersReducedMotion = useReducedMotion();
   
   // Call all hooks at the top level
-  const typingText = useTypingEffect("Full-Stack Developer & AI Engineer", 80);
+  const typingText = useTypingEffect("Software Developer & AI/ML Engineer", 80);
   
   useEffect(() => {
     setMounted(true);
@@ -153,8 +161,8 @@ export default function Home() {
                     transition={{ ...smoothTransition, delay: 0.5 }}
                     className="text-lg md:text-xl text-zinc-300 leading-relaxed max-w-xl"
                   >
-                    I build innovative digital experiences that push the boundaries of technology. 
-                    From AI-powered applications to full-stack solutions, I turn ideas into reality.
+                    Software Developer with hands-on experience in Python, REST API development, and machine learning.
+                    I build production-grade projects involving LLM integration, NLP pipelines, and full-stack apps with FastAPI, React, and Flutter.
                   </motion.p>
 
                   {/* Action Buttons */}
@@ -280,7 +288,7 @@ export default function Home() {
                         className="w-full h-full rounded-full object-cover"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
-                          target.src = '/Portfolio/project-images/1758475845776.jpg'; // fallback
+                          target.src = `${basePath}/nebula.jpg`; // fallback
                         }}
                       />
                       
@@ -349,8 +357,9 @@ export default function Home() {
                         <h3 className="text-xl font-semibold text-white">My Journey</h3>
                       </div>
                       <p className="text-zinc-300 leading-relaxed">
-                        My passion for technology started early, and I've been constantly learning and building projects that solve real-world problems. 
-                        From developing Flutter apps to creating AI-powered platforms, I love pushing the boundaries of what's possible with code.
+                        Starting from a Diploma in EEE and moving into a B.Tech in Computer Science, I've built a strong foundation in
+                        data structures, OOP, DBMS, and REST API design. Along the way I've shipped real projects — from a fake-review
+                        detection API to a face-recognition system — turning ML research into working software.
                       </p>
                     </div>
                   </div>
@@ -365,8 +374,9 @@ export default function Home() {
                         <h3 className="text-xl font-semibold text-white">Mission</h3>
                       </div>
                       <p className="text-zinc-300 leading-relaxed">
-                        I aim to ship meaningful products at scale, especially in innovative startups where I can push boundaries and explore new possibilities. 
-                        My goal is to combine creative design with powerful backend logic to build impactful applications.
+                        I'm eager to apply emerging AI and automation technologies to real-world products. My focus is on data processing,
+                        prompt engineering, and retrieval-augmented workflows — combining solid backend logic with practical ML to build
+                        products that are reliable, explainable, and built to scale.
                       </p>
                     </div>
                   </div>
@@ -380,8 +390,6 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.4 }}
                   className="space-y-8"
                 >
-                  {/* Technical Skills with Interactive Tooltips */}
-                  <SkillsSection />
 
                   {/* Fun Facts */}
                   <div className="group relative rounded-2xl border border-white/15 bg-black/40 backdrop-blur-lg p-8 hover:border-white/25 transition-all duration-300 overflow-hidden glow-on-hover">
@@ -394,19 +402,15 @@ export default function Home() {
                       <div className="space-y-3">
                         <div className="flex items-center text-zinc-300">
                           <span className="text-sky-400 mr-3">📍</span>
-                          Based in Hyderabad, India
+                          Based in Hyderabad, Telangana, India
                         </div>
                         <div className="flex items-center text-zinc-300">
                           <span className="text-sky-400 mr-3">🎓</span>
-                          Computer Science Undergraduate
-                        </div>
-                        <div className="flex items-center text-zinc-300">
-                          <span className="text-sky-400 mr-3">💡</span>
-                          Always learning new technologies
+                          B.Tech in Computer Science, VCET (2023–2026) · CGPA 7.0
                         </div>
                         <div className="flex items-center text-zinc-300">
                           <span className="text-sky-400 mr-3">🌟</span>
-                          Open to exciting opportunities
+                          Open to AI/ML & full-stack opportunities
                         </div>
                       </div>
                     </div>
@@ -453,17 +457,17 @@ export default function Home() {
 
               <div className="grid md:grid-cols-3 gap-8">
                 {[{
+                  icon: 'robot',
+                  title: 'AI / ML Engineering',
+                  items: ['Machine Learning & NLP Pipelines','LLM Integration (OpenAI, Claude, Gemini)','RAG Pipelines & Prompt Engineering','HuggingFace Transformers, TF-IDF, NER','Scikit-learn & Gradient Boosting']
+                },{
                   icon: 'code',
                   title: 'Full-Stack Development',
-                  items: ['Flutter with Firebase Authentication','Modern Gen Z-styled Websites','Node.js & FastAPI Backend','Python Development','Responsive UI/UX Design']
-                },{
-                  icon: 'robot',
-                  title: 'AI Integration',
-                  items: ['Mistral 7B & DeepSeek Models','Hugging Face Transformers','Llama Models on GPU','AI-powered Tools & Automation','Misinformation Detection Systems']
+                  items: ['Python, FastAPI & Flask Backends','React.js, Next.js & Tailwind CSS','Flutter Cross-Platform Apps','REST API Design & Integration','Pandas / NumPy Data Processing']
                 },{
                   icon: 'share',
-                  title: 'Platform Integrations',
-                  items: ['OAuth Flows Implementation','Twitter & Instagram APIs','LinkedIn & Reddit Integration','Threads & Facebook APIs','Modular Backend Architecture']
+                  title: 'Data, Tools & Platforms',
+                  items: ['PostgreSQL, MongoDB, MySQL, Firebase','Git, GitHub & Postman','Docker (Basics) & Deployment','Jupyter Notebook & DS&A','LangChain Workflows']
                 }].map((card, index) => (
                   <motion.div 
                     key={card.title}
@@ -500,9 +504,9 @@ export default function Home() {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-16"
               >
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Experience</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Academic Journey</h2>
                 <p className="text-xl text-zinc-300 max-w-3xl mx-auto leading-relaxed">
-                  My professional journey and the impact I've made
+                  My education and the foundation behind my work
                 </p>
               </motion.div>
               <Experience />

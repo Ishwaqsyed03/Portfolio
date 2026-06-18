@@ -9,12 +9,12 @@ interface Skill {
 }
 
 const skillsData: Skill[] = [
-  { name: "React/Next.js", level: 95, description: "Advanced React patterns, SSR, and modern web development" },
-  { name: "Python/FastAPI", level: 90, description: "Backend development, APIs, and data processing" },
-  { name: "Flutter/Firebase", level: 85, description: "Cross-platform mobile development and cloud integration" },
-  { name: "AI/ML Integration", level: 80, description: "Machine learning models, AI APIs, and intelligent features" },
-  { name: "Node.js/Express", level: 88, description: "Server-side JavaScript, REST APIs, and microservices" },
-  { name: "Cloud Solutions", level: 82, description: "AWS, Azure, deployment, and scalable infrastructure" }
+  { name: "Python", level: 92, description: "Core language for ML, data processing, and backend APIs" },
+  { name: "FastAPI / Flask", level: 88, description: "REST API design and real-time ML inference endpoints" },
+  { name: "Machine Learning / NLP", level: 85, description: "Scikit-learn, Gradient Boosting, TF-IDF, and NER pipelines" },
+  { name: "LLM Integration / RAG", level: 83, description: "OpenAI, Claude & Gemini, prompt engineering, retrieval workflows" },
+  { name: "React / Next.js", level: 85, description: "Modern responsive frontends with TypeScript and Tailwind CSS" },
+  { name: "Flutter", level: 78, description: "Cross-platform mobile apps with Firebase integration" }
 ];
 
 interface ChartTooltipProps {

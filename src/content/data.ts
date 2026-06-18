@@ -1,45 +1,44 @@
 export const SITE = {
     name: "Ishwaq Syed",
-    role: "AI Application Engineer · LLM Developer",
-    title: "Ishwaq Syed • AI Application Engineer & LLM Developer",
+    role: "Software Developer · AI / ML Engineer",
+    title: "Ishwaq Syed • Software Developer & AI/ML Engineer",
     description:
-          "Portfolio of Ishwaq Syed — AI Application Engineer & LLM Developer. Final year CS @ JNTUH, Hyderabad. Building RAG pipelines, LLM-powered apps, and AI-integrated full-stack systems.",
-    email: "ishwaqsyed@example.com",
-    location: "Hyderabad, India",
+          "Portfolio of Ishwaq Syed — Software Developer with hands-on experience in Python, REST API development, and machine learning. Building production-grade projects with LLM integration, NLP pipelines, and full-stack web apps using FastAPI, React, and Flutter. Final year B.Tech CS @ Visvesvaraya College of Engineering and Technology, Hyderabad.",
+    email: "ishwaqsyed16@gmail.com",
+    phone: "+91 6305815330",
+    location: "Hyderabad, Telangana, India",
 };
 
+export const SOCIALS = [
+    { icon: "github", href: "https://github.com/Ishwaqsyed03" },
+    { icon: "linkedin", href: "https://www.linkedin.com/in/ishwaqsyed" },
+    { icon: "mail", href: "mailto:ishwaqsyed16@gmail.com" },
+];
+
 export const BRANDS = [
-    "JNTUH",
+    "VCET Hyderabad",
+    "Skill India",
+    "NASSCOM",
     "Open Source",
-    "AI Labs",
-    "Early-stage Startups",
-    "HackStorm 2026",
+    "Hackathons",
     "Community",
   ];
 
 export const EXPERIENCE = [
   {
-        title: "ReviewGuard — AI Fake Review Detector",
-        period: "2025 — Present",
+        title: "B.Tech in Computer Science — VCET, Hyderabad",
+        period: "2023 — 2026",
         points: [
-                "Built a 17-signal Gradient Boosting model achieving 93% accuracy on fake review detection, deployed via FastAPI + Next.js.",
-                "Originated as a hackathon project; expanded into a production-ready tool with a REST API and a responsive TypeScript frontend.",
+                "Visvesvaraya College of Engineering and Technology, Hyderabad, Telangana · CGPA: 7.0 / 10.",
+                "Strong foundation in Data Structures & Algorithms, OOP, DBMS, and REST API design.",
               ],
   },
   {
-        title: "AI FOLIO — AI-Powered Portfolio Generator",
-        period: "2024 — 2025",
+        title: "Diploma in Electrical & Electronics Engineering (EEE)",
+        period: "2019 — 2023",
         points: [
-                "Integrated Gemini API and HuggingFace NER (dslim/bert-base-NER) for intelligent skills extraction from resumes.",
-                "Built with React/Vite frontend and deployed on GitHub Pages via a Gatekeeper OAuth proxy.",
-              ],
-  },
-  {
-        title: "MultiSenseNet — Industrial Predictive Maintenance",
-        period: "2024 — 2025",
-        points: [
-                "Final year B.Tech project: multi-sensor fusion model for industrial fault detection using Python, TensorFlow, and sensor data pipelines.",
-                "Delivered a full 60-page project report with UI screenshots and system architecture diagrams.",
+                "Sri Indu Institute of Engineering and Technology, Hyderabad, Telangana.",
+                "Built an engineering foundation before transitioning into software and AI development.",
               ],
   },
   ];
@@ -49,60 +48,60 @@ export const TESTIMONIALS = [
         quote:
                 "Ishwaq ships quickly with quality, bringing clarity to complex integrations. His ReviewGuard project showed real product thinking.",
         name: "Hackathon Mentor",
-        meta: "HackStorm 2026",
+        meta: "AI/ML Track",
   },
   {
         quote:
-                "His attention to UX details transformed our app from functional to delightful. The result was faster onboarding and happier users.",
-        name: "Founder",
-        meta: "EdTech Startup",
+                "Strong grasp of ML fundamentals and data pipelines. He designs modular systems that are easy to scale and extend.",
+        name: "Project Reviewer",
+        meta: "VCET Hyderabad",
   },
   {
         quote:
-                "Strong sense of ownership. He anticipates edge cases and designs for scale. A great addition to any high-velocity AI team.",
-        name: "Engineering Manager",
-        meta: "AI Labs",
+                "Self-motivated and analytical. He anticipates edge cases and turns research-grade ideas into working REST APIs.",
+        name: "Engineering Mentor",
+        meta: "Skill India Program",
   },
   ];
 
 export const STATS = [
-  { label: "AI/ML Projects", value: "10+" },
   { label: "Model Accuracy", value: "93%" },
+  { label: "Engineered Signals", value: "17" },
   { label: "Technologies", value: "20+" },
   ];
 
 export const SKILLS = [
   {
         icon: "robot",
-        title: "AI & LLM Engineering",
+        title: "AI / ML",
         items: [
-                "LangChain & RAG Pipelines",
-                "Gemini API & HuggingFace Transformers",
+                "Machine Learning & NLP",
+                "LLM Integration (OpenAI, Claude, Gemini)",
+                "RAG Pipelines & Prompt Engineering",
+                "HuggingFace Transformers, TF-IDF, NER",
                 "Scikit-learn & Gradient Boosting",
-                "TensorFlow / Keras",
-                "Prompt Engineering & Fine-tuning",
               ],
   },
   {
         icon: "code",
-        title: "Full-Stack Development",
+        title: "Languages & Core",
         items: [
-                "Python & FastAPI Backend",
-                "React / Next.js / TypeScript",
-                "Java & Spring Boot",
-                "Node.js & PostgreSQL",
-                "REST API Design",
+                "Python, JavaScript, Dart, SQL",
+                "Data Structures & Algorithms",
+                "Object-Oriented Programming",
+                "DBMS & REST API Design",
+                "Pandas, NumPy",
               ],
   },
   {
         icon: "share",
-        title: "Tools & Platforms",
+        title: "Frameworks & Tools",
         items: [
-                "GitHub Actions & CI/CD",
-                "Docker & Deployment",
-                "Firebase & Supabase",
-                "Android (Java / Room DB)",
-                "Vercel & GitHub Pages",
+                "FastAPI, Flask, LangChain",
+                "React.js, Next.js, Flutter, Tailwind CSS",
+                "Git, GitHub, Postman, Docker (Basics)",
+                "PostgreSQL, MongoDB, Firebase, MySQL",
+                "Jupyter Notebook",
               ],
   },
   ];
@@ -110,38 +109,85 @@ export const SKILLS = [
 export const PROJECTS = [
   {
         title: "ReviewGuard",
-        type: "AI Detection System",
+        type: "Fake Review Detection System",
         status: "Live",
+        video: "/vid/reviewguard.mp4",
+        previewUrl: "https://reviewguard-sable.vercel.app/",
+        gallery: [
+                "/project-images/reviewguard-1.png",
+                "/project-images/reviewguard-2.png",
+                "/project-images/reviewguard-3.png",
+              ],
+        links: [
+                { label: "Live Demo", href: "https://reviewguard-sable.vercel.app/" },
+                { label: "GitHub", href: "https://github.com/Ishwaqsyed03" },
+              ],
         description:
-                "AI-powered fake review detection system using a 17-signal Gradient Boosting model with 93% accuracy.",
-        detailedDescription: "ReviewGuard is an end-to-end AI system that detects fake product reviews using 17 engineered signals including sentiment, posting pattern, and linguistic features. Built with Python, Scikit-learn, FastAPI, Next.js, and TypeScript. Originated as a hackathon project and expanded into a production-ready REST API.",
-        features: ["17-signal feature engineering", "93% detection accuracy", "FastAPI REST backend", "Next.js + TypeScript frontend", "Real-time review scoring", "Explainable predictions"],
-        tech: ["Python", "Scikit-learn", "FastAPI", "Next.js", "TypeScript", "Gradient Boosting"],
+                "Fake review detection system using a 17-signal Gradient Boosting model achieving ~93% accuracy.",
+        detailedDescription: "ReviewGuard detects fake product reviews using 17 engineered signals including review length analysis, sentiment polarity, and behavioral pattern scoring. A FastAPI backend exposes REST endpoints for real-time classification with Pandas preprocessing and Scikit-learn inference, paired with a responsive Next.js frontend that shows confidence-scored results for instant feedback.",
+        features: [
+                "17-signal feature engineering (length, sentiment, behavior)",
+                "~93% detection accuracy with Gradient Boosting",
+                "FastAPI REST backend for real-time classification",
+                "Next.js + Tailwind frontend with confidence scoring",
+                "Pandas / NumPy data processing pipelines",
+                "Explainable, instant review analysis",
+              ],
+        tech: ["Python", "FastAPI", "Scikit-learn", "Pandas", "NumPy", "Next.js", "Tailwind CSS"],
         stats: { accuracy: "93%", signals: "17", type: "Gradient Boosting" },
         github: "https://github.com/Ishwaqsyed03",
   },
   {
-        title: "AI FOLIO",
-        type: "AI Portfolio Generator",
-        status: "Live",
+        title: "Criminal Identification",
+        type: "ML & Face Recognition System",
+        status: "On GitHub",
+        previewImage: "/project-images/criminal-og.png",
+        gallery: ["/project-images/criminal-og.png"],
+        links: [
+                { label: "GitHub", href: "https://github.com/Ishwaqsyed03/criminal-identification-ml" },
+              ],
         description:
-                "AI-powered portfolio generator using Gemini API and HuggingFace NER for intelligent skills extraction.",
-        detailedDescription: "AI FOLIO uses the Gemini API and HuggingFace's dslim/bert-base-NER model to extract skills and generate a personalized portfolio from a user's resume. Built with a React/Vite frontend and deployed on GitHub Pages via a Gatekeeper OAuth proxy for secure API access.",
-        features: ["Gemini API integration", "HuggingFace NER skills extraction", "React/Vite frontend", "GitHub Pages deployment", "OAuth Gatekeeper proxy", "Resume parsing"],
-        tech: ["Gemini API", "HuggingFace", "React", "Vite", "TypeScript", "Python"],
-        stats: { models: "2 AI models", deployment: "GitHub Pages", type: "LLM-powered" },
-        github: "https://github.com/Ishwaqsyed03",
+                "Automated criminal identification using OpenCV and CNN-based deep learning for real-time face recognition.",
+        detailedDescription: "An automated criminal identification system built with OpenCV (Haar Cascade, LBPH) and CNN-based deep learning models (TensorFlow/Keras) for real-time face detection and recognition. A multi-stage ML pipeline covers image preprocessing, model training, and inference, achieving robust identification across varied lighting and camera conditions, with live lookups against a MySQL criminal-records database.",
+        features: [
+                "OpenCV Haar Cascade + LBPH detection",
+                "CNN deep-learning recognition (TensorFlow/Keras)",
+                "Multi-stage preprocessing → training → inference pipeline",
+                "Real-time webcam & CCTV feed support",
+                "Live record lookups against MySQL",
+                "Modular, scalable component architecture",
+              ],
+        tech: ["Python", "OpenCV", "TensorFlow/Keras", "NumPy", "Pandas", "Scikit-learn", "MySQL"],
+        stats: { models: "CNN + LBPH", source: "Webcam / CCTV", type: "Face Recognition" },
+        github: "https://github.com/Ishwaqsyed03/criminal-identification-ml",
   },
   {
-        title: "HostelHub",
-        type: "Student Accommodation App",
-        status: "In Development",
+        title: "Resume Builder",
+        type: "ATS-Friendly Resume Generator",
+        status: "Live",
+        previewUrl: "https://resume-builder-neon-nine.vercel.app/",
+        gallery: [
+                "/project-images/resumebuilder-1.png",
+                "/project-images/resumebuilder-2.png",
+                "/project-images/resumebuilder-3.png",
+              ],
+        links: [
+                { label: "Live Demo", href: "https://resume-builder-neon-nine.vercel.app/" },
+                { label: "GitHub", href: "https://github.com/Ishwaqsyed03/resume_builder" },
+              ],
         description:
-                "React Native + Expo app for Hyderabad student accommodation with Razorpay payments and full security architecture.",
-        detailedDescription: "HostelHub targets the Hyderabad student accommodation market, built with React Native/Expo, Node.js, PostgreSQL, and Firebase. Features include Razorpay payment integration, a full security architecture, and real-time availability tracking.",
-        features: ["React Native + Expo", "Razorpay payment integration", "Node.js + PostgreSQL backend", "Firebase real-time sync", "Full security architecture", "Hyderabad market focus"],
-        tech: ["React Native", "Expo", "Node.js", "PostgreSQL", "Firebase", "Razorpay"],
-        stats: { market: "Hyderabad", stack: "Full-stack", type: "Mobile App" },
-        github: "https://github.com/Ishwaqsyed03",
+                "A live resume builder with multiple templates, drag-to-reorder sections, an ATS score, and one-click PDF export.",
+        detailedDescription: "A web-based resume builder built with Next.js, React, and TypeScript that lets users craft a resume section by section — personal info, summary, experience, education, projects, skills, and certifications — with a real-time preview. It offers Classic, Modern, and Creative templates, drag-and-drop section reordering, a live ATS (Applicant Tracking System) score to gauge resume strength, and one-click PDF export powered by jsPDF and html2canvas.",
+        features: [
+                "Live, section-by-section resume editor",
+                "Classic, Modern & Creative templates",
+                "Drag-and-drop section reordering",
+                "Real-time ATS score feedback",
+                "One-click PDF export (jsPDF + html2canvas)",
+                "Real-time preview as you type",
+              ],
+        tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "jsPDF", "html2canvas"],
+        stats: { templates: "3 templates", export: "PDF", type: "Web App" },
+        github: "https://github.com/Ishwaqsyed03/resume_builder",
   },
   ];

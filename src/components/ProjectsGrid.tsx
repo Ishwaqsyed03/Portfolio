@@ -1,7 +1,9 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import CaseStudyModal from "./CaseStudyModal";
+import ProjectPreview from "./ProjectPreview";
+import ProjectPreviewPopup from "./ProjectPreviewPopup";
 import { PROJECTS } from "@/content/data";
 
 interface Project {
@@ -13,15 +15,40 @@ interface Project {
   features: string[];
   tech: string[];
   stats: any; // Allow flexible stats structure
-  tags: string[];
-  links: { label: string; href: string; }[];
+  tags?: string[];
+  github?: string;
+  video?: string;
+  previewUrl?: string;
+  previewImage?: string;
+  gallery?: string[];
+  links?: { label: string; href: string; }[];
+}
+
+// Locally-hosted screenshots (no third-party service at runtime), base-path aware.
+function screenshotsFor(p: Project, basePath: string): string[] {
+  const raw = p.gallery ?? (p.previewImage ? [p.previewImage] : []);
+  return raw.map((s) => (s.startsWith("http") ? s : `${basePath}${s}`));
 }
 
 export default function ProjectsGrid() {
   const [open, setOpen] = useState<null | number>(null);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [popupAlign, setPopupAlign] = useState<"left" | "center" | "right">("center");
   const [projects] = useState<Project[]>(PROJECTS);
   const [loading] = useState(false);
+  const basePath = process.env.NODE_ENV === "production" ? "/Portfolio" : "";
+
+  // Pick a popup anchor that keeps the (wider-than-card) window inside the viewport.
+  const handleEnter = (idx: number, e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const center = rect.left + rect.width / 2;
+    const half = Math.min(640, vw * 0.92) / 2;
+    if (center - half < 12) setPopupAlign("left");
+    else if (center + half > vw - 12) setPopupAlign("right");
+    else setPopupAlign("center");
+    setHoveredProject(idx);
+  };
 
   if (loading) {
     return (
@@ -34,13 +61,34 @@ export default function ProjectsGrid() {
   return (
     <>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((project, idx) => (
+        {projects.map((project, idx) => {
+          const shots = screenshotsFor(project, basePath);
+          const primaryHref = project.links?.[0]?.href ?? project.github ?? "#";
+          const visitLabel = project.previewUrl ? "Visit Website" : "View on GitHub";
+          return (
           <motion.div
             key={idx}
-            onMouseEnter={() => setHoveredProject(idx)}
+            onMouseEnter={(e) => handleEnter(idx, e)}
             onMouseLeave={() => setHoveredProject(null)}
             className="group relative cursor-pointer"
           >
+            {/* Hover pop-up window with screenshot gallery + overview + link */}
+            <AnimatePresence>
+              {hoveredProject === idx && (
+                <ProjectPreviewPopup
+                  title={project.title}
+                  type={project.type}
+                  overview={project.detailedDescription}
+                  tech={project.tech}
+                  href={primaryHref}
+                  visitLabel={visitLabel}
+                  shots={shots}
+                  video={project.video ? `${basePath}${project.video}` : undefined}
+                  align={popupAlign}
+                />
+              )}
+            </AnimatePresence>
+
             <div className="relative rounded-2xl modern-card overflow-hidden transition-all duration-300 glow-on-hover group-hover:modern-card">
               <button 
                 className="absolute inset-0 z-10" 
@@ -53,14 +101,14 @@ export default function ProjectsGrid() {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/5 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               
               <div className="relative z-10 p-6">
-                {/* Project Preview Image */}
-                <div className="h-32 rounded-lg glass-effect mb-4 relative overflow-hidden group-hover:backdrop-blur-strong transition-all duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-white/5 group-hover:scale-110 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400/30 via-purple-500/20 to-cyan-400/30 opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="absolute bottom-2 right-2 text-xs font-medium glass-effect px-2 py-1 rounded backdrop-blur-medium">
-                    {project.status}
-                  </div>
-                </div>
+                {/* Project Preview - compact thumbnail (popup appears on hover) */}
+                <ProjectPreview
+                  title={project.title}
+                  status={project.status}
+                  href={primaryHref}
+                  image={shots[0]}
+                  video={project.video ? `${basePath}${project.video}` : undefined}
+                />
 
                 {/* Header */}
                 <div className="flex items-start justify-between mb-3">
@@ -121,7 +169,7 @@ export default function ProjectsGrid() {
 
                 {/* Links - Always Visible */}
                 <div className="flex gap-3 mt-auto">
-                  {project.links.map((link, linkIdx) => (
+                  {(project.links ?? (project.github ? [{ label: "GitHub", href: project.github }] : [])).map((link, linkIdx) => (
                     <a 
                       key={linkIdx}
                       href={link.href} 
@@ -136,7 +184,8 @@ export default function ProjectsGrid() {
               </div>
             </div>
           </motion.div>
-        ))}
+          );
+        })}
       </div>
       
       <CaseStudyModal
